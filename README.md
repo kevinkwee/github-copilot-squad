@@ -3,28 +3,28 @@
 A custom multi-agent orchestration setup for **GitHub Copilot coding agent**.
 
 This repo defines a 4-agent team with clear roles:
-- **Mandor**: router/orchestrator
-- **Kuli**: implementation agent
-- **Inspektor**: reviewer/QA gate
-- **Laden**: general assistant for simple/non-technical requests
+- **Capybara**: router/orchestrator
+- **Otter**: implementation agent
+- **Owl**: reviewer/QA gate
+- **Squirrel**: general assistant for simple/non-technical requests
 
 The goal is to separate execution and review, so technical tasks go through an implementation + review loop before final output, with different models contributing different perspectives.
 
 ## Why this exists
 
 When using one agent for everything, prompts often mix planning, coding, and reviewing in one pass, and the context window can fill up quickly. This setup enforces role separation:
-- Technical work is done by a builder agent (`Kuli`)
-- Quality is validated by a strict reviewer (`Inspektor`)
+- Technical work is done by a builder agent (`Otter`)
+- Quality is validated by a strict reviewer (`Owl`)
 - Implementation and review can run on different models, giving a multi-perspective quality check
-- Non-technical/simple requests are handled fast by a lightweight helper (`Laden`)
-- Routing and iteration control is centralized in `Mandor`
+- Non-technical/simple requests are handled fast by a lightweight helper (`Squirrel`)
+- Routing and iteration control is centralized in `Capybara`
 
 ## Repository contents
 
-- `Mandor.agent.md` — orchestration/router profile
-- `Kuli.agent.md` — coding/implementation profile
-- `Inspektor.agent.md` — review/QA profile
-- `Laden.agent.md` — general help profile
+- `Capybara.agent.md` — orchestration/router profile
+- `Otter.agent.md` — coding/implementation profile
+- `Owl.agent.md` — review/QA profile
+- `Squirrel.agent.md` — general help profile
 
 ## Quick start
 
@@ -45,39 +45,39 @@ This makes them available across your workspaces.
 
 ### Use it
 1. Open Copilot Chat in VS Code.
-2. Select `Mandor` from the agents dropdown.
+2. Select `Capybara` from the agents dropdown.
 3. Ask your request naturally.
-4. For technical requests, `Mandor` orchestrates Kuli ↔ Inspektor iterations automatically.
+4. For technical requests, `Capybara` orchestrates Otter ↔ Owl iterations automatically.
 
 ## How the flow works
 
 ### 1) Routing
-`Mandor` decides where to send the request:
-- **Technical implementation request** → `Kuli`
-- **Simple/non-technical request** → `Laden`
+`Capybara` decides where to send the request:
+- **Technical implementation request** → `Otter`
+- **Simple/non-technical request** → `Squirrel`
 - **Ambiguous request** → asks a clarification question first
 
-### 2) Technical orchestration loop (Kuli ↔ Inspektor)
-For technical requests, `Mandor` runs this loop:
+### 2) Technical orchestration loop (Otter ↔ Owl)
+For technical requests, `Capybara` runs this loop:
 1. Create report folder path: `.github/temp_reports/{YYYYMMDD_HHmmss}_{objective}/`
-2. Send task to `Kuli` with `{iteration}` and report path
-3. Send results to `Inspektor` for review
+2. Send task to `Otter` with `{iteration}` and report path
+3. Send results to `Owl` for review
 4. If `APPROVED` → return final result
-5. If `CHANGES REQUIRED` → send review feedback back to `Kuli` with incremented iteration
+5. If `CHANGES REQUIRED` → send review feedback back to `Otter` with incremented iteration
 6. Repeat until approved, max 5 iterations
 
-If still not approved after 5 iterations, `Mandor` stops and surfaces remaining issues.
+If still not approved after 5 iterations, `Capybara` stops and surfaces remaining issues.
 
 ### Flow diagram
 
 ```mermaid
 flowchart TD
-    U[User Request] --> M[Mandor]
-    M -->|Non-technical / simple| L[Laden]
+  U[User Request] --> M[Capybara]
+  M -->|Non-technical / simple| L[Squirrel]
     L --> U
 
-    M -->|Technical implementation| K[Kuli]
-    K --> I[Inspektor]
+  M -->|Technical implementation| K[Otter]
+  K --> I[Owl]
     I -->|APPROVED| M
     M --> U
 
@@ -86,21 +86,21 @@ flowchart TD
 
 ## Agent responsibilities
 
-### Mandor (`Mandor.agent.md`)
+### Capybara (`Capybara.agent.md`)
 - Orchestrates and routes requests
-- For technical tasks, manages iterative Kuli-Inspektor loop
+- For technical tasks, manages iterative Otter-Owl loop
 - Forwards user prompt/context **verbatim** (no rewriting)
 - Uses `#tool:agent/runSubagent` and `#tool:vscode/askQuestions`
 - Has `disable-model-invocation: true` (pure router behavior)
 
-### Kuli (`Kuli.agent.md`)
+### Otter (`Otter.agent.md`)
 - Handles implementation/coding tasks
 - Creates TODO plan, executes changes, runs available tests
 - Writes implementation summary report:
   - `.github/temp_reports/{subfolder}/implementation_{iteration}.md`
 - Focuses on practical, non-over-engineered solutions
 
-### Inspektor (`Inspektor.agent.md`)
+### Owl (`Owl.agent.md`)
 - Reviews technical output for correctness, completeness, quality
 - Runs tests when available to detect regressions
 - Classifies findings:
@@ -109,26 +109,35 @@ flowchart TD
 - Writes review report:
   - `.github/temp_reports/{subfolder}/review_{iteration}.md`
 
-### Laden (`Laden.agent.md`)
+### Squirrel (`Squirrel.agent.md`)
 - Handles simple/general prompts:
   - explanations, brainstorming, casual Q&A, lightweight troubleshooting
 - Does not modify code unless explicitly requested
 - Keeps responses concise and helpful
 
+## Fun facts 🐣
+
+| Role          | Animal        | Why it fits |
+|---------------|---------------|-------------|
+| Router        | Capybara 🦫   | Calm, friendly, and sociable. Perfect energy for coordinating agents smoothly. |
+| Implementer   | Otter 🦦      | Curious, playful, and clever. Skilled with tools and great at solving problems efficiently. |
+| Reviewer      | Owl 🦉        | Classic symbol of wisdom and sharp observation. Spots sneaky issues and keeps everything in check. |
+| Helper        | Squirrel 🐿️  | Quick, nimble, and full of energy. Always ready for quick support and small practical tasks. |
+
 ## How to use
 
-- Start chat with `Mandor`.
+- Start chat with `Capybara`.
 - Ask naturally:
   - Technical request example: “Add endpoint X with validation and tests.”
   - Non-technical request example: “Explain this repository architecture.”
-- `Mandor` routes automatically.
+- `Capybara` routes automatically.
 - For technical tasks, reports are generated under `.github/temp_reports/` per iteration.
 
 ## Report artifacts
 
 During technical tasks, expect:
-- `implementation_{iteration}.md` (from `Kuli`)
-- `review_{iteration}.md` (from `Inspektor`)
+- `implementation_{iteration}.md` (from `Otter`)
+- `review_{iteration}.md` (from `Owl`)
 
 inside:
 - `.github/temp_reports/{timestamp_objective}/`
@@ -140,8 +149,8 @@ This creates a lightweight audit trail of what was implemented and what was revi
 Common tweaks you can make:
 - Change models in frontmatter (`model:`)
 - Restrict/expand tool access (`tools:`)
-- Adjust review strictness in `Inspektor`
-- Change max loop policy in `Mandor`
+- Adjust review strictness in `Owl`
+- Change max loop policy in `Capybara`
 - Adapt tone/style prompts
 
 ## Official references
