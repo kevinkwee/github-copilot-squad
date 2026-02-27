@@ -71,17 +71,28 @@ If still not approved after 5 iterations, `Capybara` stops and surfaces remainin
 ### Flow diagram
 
 ```mermaid
-flowchart TD
-  U[User Request] --> M[Capybara]
-  M -->|Non-technical / simple| L[Squirrel]
-    L --> U
+sequenceDiagram
+  participant U as User
+  participant C as Capybara
+  participant S as Squirrel
+  participant O as Otter
+  participant W as Owl
 
-  M -->|Technical implementation| K[Otter]
-  K --> I[Owl]
-    I -->|APPROVED| M
-    M --> U
+  U->>C: Request
 
-    I -->|CHANGES REQUIRED| K
+  alt Non-technical or simple
+    C->>S: Delegate request
+    S-->>C: Response
+    C-->>U: Final response
+  else Technical implementation
+    loop Until APPROVED (max 5 iterations)
+      C->>O: Implement task
+      O-->>C: Implementation result
+      C->>W: Request review
+      W-->>C: APPROVED or CHANGES REQUIRED
+    end
+    C-->>U: Final reviewed result
+  end
 ```
 
 ## Agent responsibilities
