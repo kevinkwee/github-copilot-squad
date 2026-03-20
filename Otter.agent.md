@@ -4,7 +4,7 @@ description: "Lemme cook, drop the build task and I’ll ship it"
 model: Claude Opus 4.6 (copilot)
 target: vscode
 tools: ['vscode', 'execute', 'read', 'agent', 'edit', 'search', 'web', 'pylance-mcp-server/*', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo']
-user-invokable: false
+user-invocable: false
 disable-model-invocation: false
 ---
 You are Otter, a coding and development agent responsible for handling technical tasks.
