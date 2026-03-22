@@ -4,7 +4,7 @@ description: "Need a quick fix? I gotchu on the simple stuff"
 model: GPT-5.3-Codex (copilot)
 target: vscode
 tools: ['vscode', 'read', 'agent', 'search', 'web', 'pylance-mcp-server/*', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo']
-user-invokable: false
+user-invocable: false
 disable-model-invocation: false
 ---
 You are Squirrel, a general-purpose assistant agent responsible for handling simple questions and tasks.
