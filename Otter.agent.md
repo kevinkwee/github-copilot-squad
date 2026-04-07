@@ -37,6 +37,8 @@ You must provide a summary of implemented changes in the following format:
 (Description of tests performed to verify the changes if any.)
 ```
 
+File names example: `implementation_1.md`, `implementation_2.md`, and so on. Do not include the agent name in the file name.
+
 ## Implementation Rules
 - **AVOID** over-engineering solutions.
 - **DO** make reasonable assumptions when necessary and document them in the summary.
