@@ -1,7 +1,7 @@
 ---
 name: "Squirrel"
 description: "Need a quick fix? I gotchu on the simple stuff"
-model: GPT-5.3-Codex (copilot)
+model: GPT-5.4 (copilot)
 target: vscode
 tools: [vscode, read, agent, search, web, 'pylance-mcp-server/*', ms-python.python/getPythonEnvironmentInfo, ms-python.python/getPythonExecutableCommand, ms-python.python/installPythonPackage, ms-python.python/configurePythonEnvironment, todo]
 user-invocable: false

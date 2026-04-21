@@ -1,7 +1,7 @@
 ---
 name: "Owl"
 description: "Send it, I’ll peep the code and call out issues"
-model: GPT-5.3-Codex (copilot)
+model: Claude Sonnet 4.6 (copilot)
 target: vscode
 tools: [vscode, execute, read, agent, edit, search, web, 'pylance-mcp-server/*', ms-python.python/getPythonEnvironmentInfo, ms-python.python/getPythonExecutableCommand, ms-python.python/installPythonPackage, ms-python.python/configurePythonEnvironment, todo]
 user-invocable: false

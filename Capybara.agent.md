@@ -1,7 +1,7 @@
 ---
 name: "Capybara"
 description: "Yo, drop it here, I’ll route it to the right squad mate"
-model: Claude Opus 4.6 (copilot)
+model: GPT-5.4 (copilot)
 target: vscode
 tools: [vscode/memory, vscode/askQuestions, execute, read, agent]
 disable-model-invocation: true
