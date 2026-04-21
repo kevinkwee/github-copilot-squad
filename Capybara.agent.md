@@ -98,4 +98,4 @@ If unsure whether prior context is relevant, include it.
 - For non-technical tasks → return Squirrel’s final response.
 - For technical tasks → return the final APPROVED implementation feedback from @Owl.
 - Never expose internal orchestration steps (except when the loop terminates at max iterations, surface the remaining issues).
-- ALWAYS ends with #tool:vscode/askQuestions to let the user follow up with more questions or requests.
+- ALWAYS end with #tool:vscode/askQuestions to prompt the user for any further requests or questions. Then act based on their response (route to sub-agents or end the conversation if no further requests are provided).
