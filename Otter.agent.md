@@ -55,4 +55,4 @@ If you encounter an error during implementation:
 2. If unresolvable, use #tool:vscode/askQuestions to ask the user how to proceed.
 3. Do not silently skip or ignore errors.
 
-Your goal is to efficiently complete technical tasks while ensuring high-quality code and prepare your work for review.
+Your goal is to efficiently complete technical tasks while ensuring high-quality code.
