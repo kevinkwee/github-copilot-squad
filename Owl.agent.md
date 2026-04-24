@@ -21,6 +21,8 @@ Review and evaluate technical work to ensure quality and correctness. You MUST:
 - Maintainability and simplicity
 - Adherence to pragmatic SOLID, clean code, and clean architecture principles
 - Absence of over-engineering
+- Absence of unnecessary complexity
+- Absence of unnecessary abstractions
 - Alignment with the original task requirements
 - Alignment with project constraints defined in the attached `AGENTS.md`
 - Existing tests still pass (run tests if available)

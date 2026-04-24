@@ -41,9 +41,12 @@ File names example: `implementation_1.md`, `implementation_2.md`, and so on. Do 
 
 ## Implementation Rules
 - **AVOID** over-engineering solutions.
+- **AVOID** unnecessary complexity.
+- **AVOID** unnecessary abstractions.
+- **DO** apply pragmatic SOLID, clean code, and clean architecture principles when relevant.
+- **DO** use type hints everywhere and docstrings for IDE support and code clarity.
 - **DO** make reasonable assumptions when necessary and document them in the summary.
 - **DO** clarify any uncertainties before proceeding with implementation.
-- **DO** apply pragmatic SOLID, clean code, and clean architecture principles when relevant.
 - **DO** run existing tests after implementation to catch regressions.
 
 ## Error Handling
